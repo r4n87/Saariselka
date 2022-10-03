@@ -480,4 +480,691 @@ public class VOMapperTest {
         assertThat(summonerVO.getLastRefreshTimeForUI()).isEqualTo("0분 전");
         assertThat(summonerVO.getLastRefreshTimeForAPI()).isEqualTo(rrt.toInstant().getEpochSecond());
     }
+
+    @Test
+    @DisplayName("Convert MatchParticipant Entity List To MatchParticipant VO List")
+    public void toMatchParticipantVOList() {
+        //given
+        List<MatchParticipantEntity> matchParticipantEntityList = new ArrayList<>();
+        String puuid = "UUUUUUUU";
+        String dataVersion = "3";
+        String matchId = "ABCDEFG";
+        int participantId = 1;
+
+        int assists = 9;
+        int baronKills = 8;
+        int bountyLevel = 7;
+        int champExperience = 6;
+        int champLevel = 5;
+        int championId = 4;
+        String championName = "Ari";
+        String championNameKR = "아리";
+        String championImg = "Ahri.png";
+        int championTransform = 3;
+        int consumablesPurchased = 2;
+        int damageDealtToBuildings = 1;
+        int damageDealtToObjectives = 100;
+        int damageDealtToTurrets = 99;
+        int damageSelfMitigated = 98;
+        int deaths = 97;
+        int detectorWardsPlaced = 96;
+        int doubleKills = 95;
+        int dragonKills = 94;
+        boolean firstBloodAssist = true;
+        boolean firstBloodKill = false;
+        boolean firstTowerAssist = true;
+        boolean firstTowerKill = false;
+        boolean gameEndedInEarlySurrender = true;
+        boolean gameEndedInSurrender = false;
+        int goldEarned = 93;
+        int goldSpent = 92;
+        String individualPosition = "MIDDLE";
+        int inhibitorKills = 91;
+        int inhibitorTakedowns = 90;
+        int inhibitorsLost = 89;
+        int item0 = 88;
+        int item1 = 87;
+        int item2 = 86;
+        int item3 = 85;
+        int item4 = 84;
+        int item5 = 83;
+        int item6 = 82;
+        int itemsPurchased = 81;
+        int killingSprees = 80;
+        int kills = 79;
+        String lane = "MIDDLE";
+        int largestCriticalStrike = 78;
+        int largestKillingSpree = 77;
+        int largestMultiKill = 76;
+        int longestTimeSpentLiving = 75;
+        int magicDamageDealt = 74;
+        int magicDamageDealtToChampions = 73;
+        int magicDamageTaken = 72;
+        int neutralMinionsKilled = 71;
+        int nexusKills = 70;
+        int nexusTakedowns = 69;
+        int nexusLost = 68;
+        int objectivesStolen = 67;
+        int objectivesStolenAssists = 66;
+        int pentaKills = 65;
+        int physicalDamageDealt = 64;
+        int physicalDamageDealtToChampions = 63;
+        int physicalDamageTaken = 62;
+        int profileIcon = 61;
+        int quadraKills = 60;
+        String riotIdName = "BYEROO";
+        String riotIdTagline = "BYEROO321";
+        String role = "BYEBYE";
+        int sightWardsBoughtInGame = 59;
+        int spell1Casts = 58;
+        int spell2Casts = 57;
+        int spell3Casts = 56;
+        int spell4Casts = 55;
+        int summoner1Casts = 54;
+        String summoner1Id = "53";
+        int summoner2Casts = 52;
+        String summoner2Id = "50";
+        String summonerId = "ByeSummoner";
+        int summonerLevel = 49;
+        String summonerName = "ARIISGOD";
+        boolean teamEarlySurrendered = true;
+        int teamId = 48;
+        String teamPosition = "BLUE";
+        int timeCCingOthers = 47;
+        int timePlayed = 46;
+        int totalDamageDealt = 45;
+        int totalDamageDealtToChampions = 44;
+        int totalDamageShieldedOnTeammates = 43;
+        int totalDamageTaken = 42;
+        int totalHeal = 41;
+        int totalHealsOnTeammates = 40;
+        int totalMinionsKilled = 39;
+        int totalTimeCCDealt = 38;
+        int totalTimeSpentDead = 37;
+        int totalUnitsHealed = 36;
+        int tripleKills = 35;
+        int trueDamageDealt = 34;
+        int trueDamageDealtToChampions = 33;
+        int trueDamageTaken = 32;
+        int turretKills = 31;
+        int turretTakedowns = 30;
+        int turretsLost = 29;
+        int unrealKills = 28;
+        int visionScore = 27;
+        int visionWardsBoughtInGame = 26;
+        int wardsKilled = 25;
+        int wardsPlaced = 24;
+        boolean win = false;
+        Timestamp rrt = new Timestamp(System.currentTimeMillis());
+
+        MatchParticipantEntity matchParticipantEntity
+                = new MatchParticipantEntity(
+                new MatchParticipantId(
+                        puuid,
+                        dataVersion,
+                        matchId,
+                        participantId
+                ),
+                assists,
+                baronKills,
+                bountyLevel,
+                champExperience,
+                champLevel,
+                championId,
+                championName,
+                championNameKR,
+                championImg,
+                championTransform,
+                consumablesPurchased,
+                damageDealtToBuildings,
+                damageDealtToObjectives,
+                damageDealtToTurrets,
+                damageSelfMitigated,
+                deaths,
+                detectorWardsPlaced,
+                doubleKills,
+                dragonKills,
+                firstBloodAssist,
+                firstBloodKill,
+                firstTowerAssist,
+                firstTowerKill,
+                gameEndedInEarlySurrender,
+                gameEndedInSurrender,
+                goldEarned,
+                goldSpent,
+                individualPosition,
+                inhibitorKills,
+                inhibitorTakedowns,
+                inhibitorsLost,
+                item0,
+                item1,
+                item2,
+                item3,
+                item4,
+                item5,
+                item6,
+                itemsPurchased,
+                killingSprees,
+                kills,
+                lane,
+                largestCriticalStrike,
+                largestKillingSpree,
+                largestMultiKill,
+                longestTimeSpentLiving,
+                magicDamageDealt,
+                magicDamageDealtToChampions,
+                magicDamageTaken,
+                neutralMinionsKilled,
+                nexusKills,
+                nexusTakedowns,
+                nexusLost,
+                objectivesStolen,
+                objectivesStolenAssists,
+                pentaKills,
+                physicalDamageDealt,
+                physicalDamageDealtToChampions,
+                physicalDamageTaken,
+                profileIcon,
+                quadraKills,
+                riotIdName,
+                riotIdTagline,
+                role,
+                sightWardsBoughtInGame,
+                spell1Casts,
+                spell2Casts,
+                spell3Casts,
+                spell4Casts,
+                summoner1Casts,
+                summoner1Id,
+                summoner2Casts,
+                summoner2Id,
+                summonerId,
+                summonerLevel,
+                summonerName,
+                teamEarlySurrendered,
+                teamId,
+                teamPosition,
+                timeCCingOthers,
+                timePlayed,
+                totalDamageDealt,
+                totalDamageDealtToChampions,
+                totalDamageShieldedOnTeammates,
+                totalDamageTaken,
+                totalHeal,
+                totalHealsOnTeammates,
+                totalMinionsKilled,
+                totalTimeCCDealt,
+                totalTimeSpentDead,
+                totalUnitsHealed,
+                tripleKills,
+                trueDamageDealt,
+                trueDamageDealtToChampions,
+                trueDamageTaken,
+                turretKills,
+                turretTakedowns,
+                turretsLost,
+                unrealKills,
+                visionScore,
+                visionWardsBoughtInGame,
+                wardsKilled,
+                wardsPlaced,
+                win,
+                rrt
+        );
+
+        matchParticipantEntityList.add(matchParticipantEntity);
+
+        //when
+        MatchParticipantVO matchParticipantVO = voMapper.toMatchParticipantVOList(matchParticipantEntityList).get(0);
+
+        //then
+        assertThat(matchParticipantVO.getPuuid()).isEqualTo(puuid);
+        assertThat(matchParticipantVO.getDataVersion()).isEqualTo(dataVersion);
+        assertThat(matchParticipantVO.getMatchId()).isEqualTo(matchId);
+        assertThat(matchParticipantVO.getParticipantId()).isEqualTo(participantId);
+        assertThat(matchParticipantVO.getAssists()).isEqualTo(assists);
+        assertThat(matchParticipantVO.getBaronKills()).isEqualTo(baronKills);
+        assertThat(matchParticipantVO.getBountyLevel()).isEqualTo(bountyLevel);
+        assertThat(matchParticipantVO.getChampExperience()).isEqualTo(champExperience);
+        assertThat(matchParticipantVO.getChampLevel()).isEqualTo(champLevel);
+        assertThat(matchParticipantVO.getChampionId()).isEqualTo(championId);
+        assertThat(matchParticipantVO.getChampionName()).isEqualTo(championName);
+        assertThat(matchParticipantVO.getChampionNameKR()).isEqualTo(championNameKR);
+        assertThat(matchParticipantVO.getChampionImg()).isEqualTo(championImg);
+        assertThat(matchParticipantVO.getChampionTransform()).isEqualTo(championTransform);
+        assertThat(matchParticipantVO.getConsumablesPurchased()).isEqualTo(consumablesPurchased);
+        assertThat(matchParticipantVO.getDamageDealtToBuildings()).isEqualTo(damageDealtToBuildings);
+        assertThat(matchParticipantVO.getDamageDealtToObjectives()).isEqualTo(damageDealtToObjectives);
+        assertThat(matchParticipantVO.getDamageSelfMitigated()).isEqualTo(damageSelfMitigated);
+        assertThat(matchParticipantVO.getDeaths()).isEqualTo(deaths);
+        assertThat(matchParticipantVO.getDetectorWardsPlaced()).isEqualTo(detectorWardsPlaced);
+        assertThat(matchParticipantVO.getDoubleKills()).isEqualTo(doubleKills);
+        assertThat(matchParticipantVO.getDragonKills()).isEqualTo(dragonKills);
+        assertThat(matchParticipantVO.isFirstBloodAssist()).isEqualTo(firstBloodAssist);
+        assertThat(matchParticipantVO.isFirstBloodKill()).isEqualTo(firstBloodKill);
+        assertThat(matchParticipantVO.isFirstTowerAssist()).isEqualTo(firstTowerAssist);
+        assertThat(matchParticipantVO.isFirstTowerKill()).isEqualTo(firstTowerKill);
+        assertThat(matchParticipantVO.isGameEndedInEarlySurrender()).isEqualTo(gameEndedInEarlySurrender);
+        assertThat(matchParticipantVO.isGameEndedInSurrender()).isEqualTo(gameEndedInSurrender);
+        assertThat(matchParticipantVO.getGoldEarned()).isEqualTo(goldEarned);
+        assertThat(matchParticipantVO.getGoldSpent()).isEqualTo(goldSpent);
+        assertThat(matchParticipantVO.getIndividualPosition()).isEqualTo(individualPosition);
+        assertThat(matchParticipantVO.getInhibitorKills()).isEqualTo(inhibitorKills);
+        assertThat(matchParticipantVO.getInhibitorTakedowns()).isEqualTo(inhibitorTakedowns);
+        assertThat(matchParticipantVO.getInhibitorsLost()).isEqualTo(inhibitorsLost);
+        assertThat(matchParticipantVO.getItem0()).isEqualTo(item0);
+        assertThat(matchParticipantVO.getItem1()).isEqualTo(item1);
+        assertThat(matchParticipantVO.getItem2()).isEqualTo(item2);
+        assertThat(matchParticipantVO.getItem3()).isEqualTo(item3);
+        assertThat(matchParticipantVO.getItem4()).isEqualTo(item4);
+        assertThat(matchParticipantVO.getItem5()).isEqualTo(item5);
+        assertThat(matchParticipantVO.getItem6()).isEqualTo(item6);
+        assertThat(matchParticipantVO.getItemsPurchased()).isEqualTo(itemsPurchased);
+        assertThat(matchParticipantVO.getKillingSprees()).isEqualTo(killingSprees);
+        assertThat(matchParticipantVO.getKills()).isEqualTo(kills);
+        assertThat(matchParticipantVO.getLane()).isEqualTo(lane);
+        assertThat(matchParticipantVO.getLargestCriticalStrike()).isEqualTo(largestCriticalStrike);
+        assertThat(matchParticipantVO.getLargestKillingSpree()).isEqualTo(largestKillingSpree);
+        assertThat(matchParticipantVO.getLongestTimeSpentLiving()).isEqualTo(longestTimeSpentLiving);
+        assertThat(matchParticipantVO.getMagicDamageDealt()).isEqualTo(magicDamageDealt);
+        assertThat(matchParticipantVO.getMagicDamageDealtToChampions()).isEqualTo(magicDamageDealtToChampions);
+        assertThat(matchParticipantVO.getMagicDamageTaken()).isEqualTo(magicDamageTaken);
+        assertThat(matchParticipantVO.getNeutralMinionsKilled()).isEqualTo(neutralMinionsKilled);
+        assertThat(matchParticipantVO.getNexusKills()).isEqualTo(nexusKills);
+        assertThat(matchParticipantVO.getNexusLost()).isEqualTo(nexusLost);
+        assertThat(matchParticipantVO.getNexusTakedowns()).isEqualTo(nexusTakedowns);
+        assertThat(matchParticipantVO.getObjectivesStolen()).isEqualTo(objectivesStolen);
+        assertThat(matchParticipantVO.getObjectivesStolenAssists()).isEqualTo(objectivesStolenAssists);
+        assertThat(matchParticipantVO.getPentaKills()).isEqualTo(pentaKills);
+        assertThat(matchParticipantVO.getPhysicalDamageDealt()).isEqualTo(physicalDamageDealt);
+        assertThat(matchParticipantVO.getPhysicalDamageDealtToChampions()).isEqualTo(physicalDamageDealtToChampions);
+        assertThat(matchParticipantVO.getPhysicalDamageTaken()).isEqualTo(physicalDamageTaken);
+        assertThat(matchParticipantVO.getProfileIcon()).isEqualTo(profileIcon);
+        assertThat(matchParticipantVO.getQuadraKills()).isEqualTo(quadraKills);
+        assertThat(matchParticipantVO.getRiotIdName()).isEqualTo(riotIdName);
+        assertThat(matchParticipantVO.getRiotIdTagline()).isEqualTo(riotIdTagline);
+        assertThat(matchParticipantVO.getRole()).isEqualTo(role);
+        assertThat(matchParticipantVO.getSightWardsBoughtInGame()).isEqualTo(sightWardsBoughtInGame);
+        assertThat(matchParticipantVO.getSpell1Casts()).isEqualTo(spell1Casts);
+        assertThat(matchParticipantVO.getSpell2Casts()).isEqualTo(spell2Casts);
+        assertThat(matchParticipantVO.getSpell3Casts()).isEqualTo(spell3Casts);
+        assertThat(matchParticipantVO.getSpell4Casts()).isEqualTo(spell4Casts);
+        assertThat(matchParticipantVO.getSummoner1Casts()).isEqualTo(summoner1Casts);
+        assertThat(matchParticipantVO.getSummoner1Id()).isEqualTo(summoner1Id);
+        assertThat(matchParticipantVO.getSummoner2Casts()).isEqualTo(summoner2Casts);
+        assertThat(matchParticipantVO.getSummoner2Id()).isEqualTo(summoner2Id);
+        assertThat(matchParticipantVO.getSummonerId()).isEqualTo(summonerId);
+        assertThat(matchParticipantVO.getSummonerLevel()).isEqualTo(summonerLevel);
+        assertThat(matchParticipantVO.getSummonerName()).isEqualTo(summonerName);
+        assertThat(matchParticipantVO.isTeamEarlySurrendered()).isEqualTo(teamEarlySurrendered);
+        assertThat(matchParticipantVO.getTeamId()).isEqualTo(teamId);
+        assertThat(matchParticipantVO.getTeamPosition()).isEqualTo(teamPosition);
+        assertThat(matchParticipantVO.getTimeCCingOthers()).isEqualTo(timeCCingOthers);
+        assertThat(matchParticipantVO.getTimePlayed()).isEqualTo(timePlayed);
+        assertThat(matchParticipantVO.getTotalDamageDealt()).isEqualTo(totalDamageDealt);
+        assertThat(matchParticipantVO.getTotalDamageDealtToChampions()).isEqualTo(totalDamageDealtToChampions);
+        assertThat(matchParticipantVO.getTotalDamageTaken()).isEqualTo(totalDamageTaken);
+        assertThat(matchParticipantVO.getTotalHeal()).isEqualTo(totalHeal);
+        assertThat(matchParticipantVO.getTotalHealsOnTeammates()).isEqualTo(totalHealsOnTeammates);
+        assertThat(matchParticipantVO.getTotalMinionsKilled()).isEqualTo(totalMinionsKilled);
+        assertThat(matchParticipantVO.getTotalTimeCCDealt()).isEqualTo(totalTimeCCDealt);
+        assertThat(matchParticipantVO.getTotalTimeSpentDead()).isEqualTo(totalTimeSpentDead);
+        assertThat(matchParticipantVO.getTotalUnitsHealed()).isEqualTo(totalUnitsHealed);
+        assertThat(matchParticipantVO.getTripleKills()).isEqualTo(tripleKills);
+        assertThat(matchParticipantVO.getTrueDamageDealt()).isEqualTo(trueDamageDealt);
+        assertThat(matchParticipantVO.getTrueDamageDealtToChampions()).isEqualTo(trueDamageDealtToChampions);
+        assertThat(matchParticipantVO.getTrueDamageTaken()).isEqualTo(trueDamageTaken);
+        assertThat(matchParticipantVO.getTurretKills()).isEqualTo(turretKills);
+        assertThat(matchParticipantVO.getTurretTakedowns()).isEqualTo(turretTakedowns);
+        assertThat(matchParticipantVO.getTurretsLost()).isEqualTo(turretsLost);
+        assertThat(matchParticipantVO.getUnrealKills()).isEqualTo(unrealKills);
+        assertThat(matchParticipantVO.getVisionScore()).isEqualTo(visionScore);
+        assertThat(matchParticipantVO.getVisionWardsBoughtInGame()).isEqualTo(visionWardsBoughtInGame);
+        assertThat(matchParticipantVO.getWardsKilled()).isEqualTo(wardsKilled);
+        assertThat(matchParticipantVO.getWardsPlaced()).isEqualTo(wardsPlaced);
+        assertThat(matchParticipantVO.isWin()).isEqualTo(win);
+        assertThat(matchParticipantVO.getRrt()).isEqualTo(rrt);
+    }
+
+    @Test
+    @DisplayName("Convert MatchParticipant VO TO MatchParticipant Entity")
+    public void toMatchParticipantEntity() {
+        //given
+        String puuid = "UUUUUUUU";
+        String dataVersion = "3";
+        String matchId = "ABCDEFG";
+        int participantId = 1;
+
+        int assists = 9;
+        int baronKills = 8;
+        int bountyLevel = 7;
+        int champExperience = 6;
+        int champLevel = 5;
+        int championId = 4;
+        String championName = "Ari";
+        String championNameKR = "아리";
+        String championImg = "Ahri.png";
+        int championTransform = 3;
+        int consumablesPurchased = 2;
+        int damageDealtToBuildings = 1;
+        int damageDealtToObjectives = 100;
+        int damageDealtToTurrets = 99;
+        int damageSelfMitigated = 98;
+        int deaths = 97;
+        int detectorWardsPlaced = 96;
+        int doubleKills = 95;
+        int dragonKills = 94;
+        boolean firstBloodAssist = true;
+        boolean firstBloodKill = false;
+        boolean firstTowerAssist = true;
+        boolean firstTowerKill = false;
+        boolean gameEndedInEarlySurrender = true;
+        boolean gameEndedInSurrender = false;
+        int goldEarned = 93;
+        int goldSpent = 92;
+        String individualPosition = "MIDDLE";
+        int inhibitorKills = 91;
+        int inhibitorTakedowns = 90;
+        int inhibitorsLost = 89;
+        int item0 = 88;
+        int item1 = 87;
+        int item2 = 86;
+        int item3 = 85;
+        int item4 = 84;
+        int item5 = 83;
+        int item6 = 82;
+        int itemsPurchased = 81;
+        int killingSprees = 80;
+        int kills = 79;
+        String lane = "MIDDLE";
+        int largestCriticalStrike = 78;
+        int largestKillingSpree = 77;
+        int largestMultiKill = 76;
+        int longestTimeSpentLiving = 75;
+        int magicDamageDealt = 74;
+        int magicDamageDealtToChampions = 73;
+        int magicDamageTaken = 72;
+        int neutralMinionsKilled = 71;
+        int nexusKills = 70;
+        int nexusTakedowns = 69;
+        int nexusLost = 68;
+        int objectivesStolen = 67;
+        int objectivesStolenAssists = 66;
+        int pentaKills = 65;
+        int physicalDamageDealt = 64;
+        int physicalDamageDealtToChampions = 63;
+        int physicalDamageTaken = 62;
+        int profileIcon = 61;
+        int quadraKills = 60;
+        String riotIdName = "BYEROO";
+        String riotIdTagline = "BYEROO321";
+        String role = "BYEBYE";
+        int sightWardsBoughtInGame = 59;
+        int spell1Casts = 58;
+        int spell2Casts = 57;
+        int spell3Casts = 56;
+        int spell4Casts = 55;
+        int summoner1Casts = 54;
+        String summoner1Id = "53";
+        int summoner2Casts = 52;
+        String summoner2Id = "50";
+        String summonerId = "ByeSummoner";
+        int summonerLevel = 49;
+        String summonerName = "ARIISGOD";
+        boolean teamEarlySurrendered = true;
+        int teamId = 48;
+        String teamPosition = "BLUE";
+        int timeCCingOthers = 47;
+        int timePlayed = 46;
+        int totalDamageDealt = 45;
+        int totalDamageDealtToChampions = 44;
+        int totalDamageShieldedOnTeammates = 43;
+        int totalDamageTaken = 42;
+        int totalHeal = 41;
+        int totalHealsOnTeammates = 40;
+        int totalMinionsKilled = 39;
+        int totalTimeCCDealt = 38;
+        int totalTimeSpentDead = 37;
+        int totalUnitsHealed = 36;
+        int tripleKills = 35;
+        int trueDamageDealt = 34;
+        int trueDamageDealtToChampions = 33;
+        int trueDamageTaken = 32;
+        int turretKills = 31;
+        int turretTakedowns = 30;
+        int turretsLost = 29;
+        int unrealKills = 28;
+        int visionScore = 27;
+        int visionWardsBoughtInGame = 26;
+        int wardsKilled = 25;
+        int wardsPlaced = 24;
+        boolean win = false;
+        Timestamp rrt = new Timestamp(System.currentTimeMillis());
+
+        MatchParticipantVO matchParticipantVO
+                = new MatchParticipantVO(
+                puuid,
+                dataVersion,
+                matchId,
+                participantId,
+                assists,
+                baronKills,
+                bountyLevel,
+                champExperience,
+                champLevel,
+                championId,
+                championName,
+                championNameKR,
+                championImg,
+                championTransform,
+                consumablesPurchased,
+                damageDealtToBuildings,
+                damageDealtToObjectives,
+                damageDealtToTurrets,
+                damageSelfMitigated,
+                deaths,
+                detectorWardsPlaced,
+                doubleKills,
+                dragonKills,
+                firstBloodAssist,
+                firstBloodKill,
+                firstTowerAssist,
+                firstTowerKill,
+                gameEndedInEarlySurrender,
+                gameEndedInSurrender,
+                goldEarned,
+                goldSpent,
+                individualPosition,
+                inhibitorKills,
+                inhibitorTakedowns,
+                inhibitorsLost,
+                item0,
+                item1,
+                item2,
+                item3,
+                item4,
+                item5,
+                item6,
+                itemsPurchased,
+                killingSprees,
+                kills,
+                lane,
+                largestCriticalStrike,
+                largestKillingSpree,
+                largestMultiKill,
+                longestTimeSpentLiving,
+                magicDamageDealt,
+                magicDamageDealtToChampions,
+                magicDamageTaken,
+                neutralMinionsKilled,
+                nexusKills,
+                nexusTakedowns,
+                nexusLost,
+                objectivesStolen,
+                objectivesStolenAssists,
+                pentaKills,
+                physicalDamageDealt,
+                physicalDamageDealtToChampions,
+                physicalDamageTaken,
+                profileIcon,
+                quadraKills,
+                riotIdName,
+                riotIdTagline,
+                role,
+                sightWardsBoughtInGame,
+                spell1Casts,
+                spell2Casts,
+                spell3Casts,
+                spell4Casts,
+                summoner1Casts,
+                summoner1Id,
+                summoner2Casts,
+                summoner2Id,
+                summonerId,
+                summonerLevel,
+                summonerName,
+                teamEarlySurrendered,
+                teamId,
+                teamPosition,
+                timeCCingOthers,
+                timePlayed,
+                totalDamageDealt,
+                totalDamageDealtToChampions,
+                totalDamageShieldedOnTeammates,
+                totalDamageTaken,
+                totalHeal,
+                totalHealsOnTeammates,
+                totalMinionsKilled,
+                totalTimeCCDealt,
+                totalTimeSpentDead,
+                totalUnitsHealed,
+                tripleKills,
+                trueDamageDealt,
+                trueDamageDealtToChampions,
+                trueDamageTaken,
+                turretKills,
+                turretTakedowns,
+                turretsLost,
+                unrealKills,
+                visionScore,
+                visionWardsBoughtInGame,
+                wardsKilled,
+                wardsPlaced,
+                win,
+                rrt
+        );
+
+        //when
+        MatchParticipantEntity matchParticipantEntity
+                = voMapper.toMatchParticipantEntity(matchParticipantVO);
+
+        //then
+        assertThat(matchParticipantEntity.getMatchParticipantId().getPuuid()).isEqualTo(puuid);
+        assertThat(matchParticipantEntity.getMatchParticipantId().getDataVersion()).isEqualTo(dataVersion);
+        assertThat(matchParticipantEntity.getMatchParticipantId().getMatchId()).isEqualTo(matchId);
+        assertThat(matchParticipantEntity.getMatchParticipantId().getParticipantId()).isEqualTo(participantId);
+        assertThat(matchParticipantEntity.getAssists()).isEqualTo(assists);
+        assertThat(matchParticipantEntity.getBaronKills()).isEqualTo(baronKills);
+        assertThat(matchParticipantEntity.getBountyLevel()).isEqualTo(bountyLevel);
+        assertThat(matchParticipantEntity.getChampExperience()).isEqualTo(champExperience);
+        assertThat(matchParticipantEntity.getChampLevel()).isEqualTo(champLevel);
+        assertThat(matchParticipantEntity.getChampionId()).isEqualTo(championId);
+        assertThat(matchParticipantEntity.getChampionName()).isEqualTo(championName);
+        assertThat(matchParticipantEntity.getChampionNameKR()).isEqualTo(championNameKR);
+        assertThat(matchParticipantEntity.getChampionImg()).isEqualTo(championImg);
+        assertThat(matchParticipantEntity.getChampionTransform()).isEqualTo(championTransform);
+        assertThat(matchParticipantEntity.getConsumablesPurchased()).isEqualTo(consumablesPurchased);
+        assertThat(matchParticipantEntity.getDamageDealtToBuildings()).isEqualTo(damageDealtToBuildings);
+        assertThat(matchParticipantEntity.getDamageDealtToObjectives()).isEqualTo(damageDealtToObjectives);
+        assertThat(matchParticipantEntity.getDamageSelfMitigated()).isEqualTo(damageSelfMitigated);
+        assertThat(matchParticipantEntity.getDeaths()).isEqualTo(deaths);
+        assertThat(matchParticipantEntity.getDetectorWardsPlaced()).isEqualTo(detectorWardsPlaced);
+        assertThat(matchParticipantEntity.getDoubleKills()).isEqualTo(doubleKills);
+        assertThat(matchParticipantEntity.getDragonKills()).isEqualTo(dragonKills);
+        assertThat(matchParticipantEntity.isFirstBloodAssist()).isEqualTo(firstBloodAssist);
+        assertThat(matchParticipantEntity.isFirstBloodKill()).isEqualTo(firstBloodKill);
+        assertThat(matchParticipantEntity.isFirstTowerAssist()).isEqualTo(firstTowerAssist);
+        assertThat(matchParticipantEntity.isFirstTowerKill()).isEqualTo(firstTowerKill);
+        assertThat(matchParticipantEntity.isGameEndedInEarlySurrender()).isEqualTo(gameEndedInEarlySurrender);
+        assertThat(matchParticipantEntity.isGameEndedInSurrender()).isEqualTo(gameEndedInSurrender);
+        assertThat(matchParticipantEntity.getGoldEarned()).isEqualTo(goldEarned);
+        assertThat(matchParticipantEntity.getGoldSpent()).isEqualTo(goldSpent);
+        assertThat(matchParticipantEntity.getIndividualPosition()).isEqualTo(individualPosition);
+        assertThat(matchParticipantEntity.getInhibitorKills()).isEqualTo(inhibitorKills);
+        assertThat(matchParticipantEntity.getInhibitorTakedowns()).isEqualTo(inhibitorTakedowns);
+        assertThat(matchParticipantEntity.getInhibitorsLost()).isEqualTo(inhibitorsLost);
+        assertThat(matchParticipantEntity.getItem0()).isEqualTo(item0);
+        assertThat(matchParticipantEntity.getItem1()).isEqualTo(item1);
+        assertThat(matchParticipantEntity.getItem2()).isEqualTo(item2);
+        assertThat(matchParticipantEntity.getItem3()).isEqualTo(item3);
+        assertThat(matchParticipantEntity.getItem4()).isEqualTo(item4);
+        assertThat(matchParticipantEntity.getItem5()).isEqualTo(item5);
+        assertThat(matchParticipantEntity.getItem6()).isEqualTo(item6);
+        assertThat(matchParticipantEntity.getItemsPurchased()).isEqualTo(itemsPurchased);
+        assertThat(matchParticipantEntity.getKillingSprees()).isEqualTo(killingSprees);
+        assertThat(matchParticipantEntity.getKills()).isEqualTo(kills);
+        assertThat(matchParticipantEntity.getLane()).isEqualTo(lane);
+        assertThat(matchParticipantEntity.getLargestCriticalStrike()).isEqualTo(largestCriticalStrike);
+        assertThat(matchParticipantEntity.getLargestKillingSpree()).isEqualTo(largestKillingSpree);
+        assertThat(matchParticipantEntity.getLongestTimeSpentLiving()).isEqualTo(longestTimeSpentLiving);
+        assertThat(matchParticipantEntity.getMagicDamageDealt()).isEqualTo(magicDamageDealt);
+        assertThat(matchParticipantEntity.getMagicDamageDealtToChampions()).isEqualTo(magicDamageDealtToChampions);
+        assertThat(matchParticipantEntity.getMagicDamageTaken()).isEqualTo(magicDamageTaken);
+        assertThat(matchParticipantEntity.getNeutralMinionsKilled()).isEqualTo(neutralMinionsKilled);
+        assertThat(matchParticipantEntity.getNexusKills()).isEqualTo(nexusKills);
+        assertThat(matchParticipantEntity.getNexusLost()).isEqualTo(nexusLost);
+        assertThat(matchParticipantEntity.getNexusTakedowns()).isEqualTo(nexusTakedowns);
+        assertThat(matchParticipantEntity.getObjectivesStolen()).isEqualTo(objectivesStolen);
+        assertThat(matchParticipantEntity.getObjectivesStolenAssists()).isEqualTo(objectivesStolenAssists);
+        assertThat(matchParticipantEntity.getPentaKills()).isEqualTo(pentaKills);
+        assertThat(matchParticipantEntity.getPhysicalDamageDealt()).isEqualTo(physicalDamageDealt);
+        assertThat(matchParticipantEntity.getPhysicalDamageDealtToChampions()).isEqualTo(physicalDamageDealtToChampions);
+        assertThat(matchParticipantEntity.getPhysicalDamageTaken()).isEqualTo(physicalDamageTaken);
+        assertThat(matchParticipantEntity.getProfileIcon()).isEqualTo(profileIcon);
+        assertThat(matchParticipantEntity.getQuadraKills()).isEqualTo(quadraKills);
+        assertThat(matchParticipantEntity.getRiotIdName()).isEqualTo(riotIdName);
+        assertThat(matchParticipantEntity.getRiotIdTagline()).isEqualTo(riotIdTagline);
+        assertThat(matchParticipantEntity.getRole()).isEqualTo(role);
+        assertThat(matchParticipantEntity.getSightWardsBoughtInGame()).isEqualTo(sightWardsBoughtInGame);
+        assertThat(matchParticipantEntity.getSpell1Casts()).isEqualTo(spell1Casts);
+        assertThat(matchParticipantEntity.getSpell2Casts()).isEqualTo(spell2Casts);
+        assertThat(matchParticipantEntity.getSpell3Casts()).isEqualTo(spell3Casts);
+        assertThat(matchParticipantEntity.getSpell4Casts()).isEqualTo(spell4Casts);
+        assertThat(matchParticipantEntity.getSummoner1Casts()).isEqualTo(summoner1Casts);
+        assertThat(matchParticipantEntity.getSummoner1Id()).isEqualTo(summoner1Id);
+        assertThat(matchParticipantEntity.getSummoner2Casts()).isEqualTo(summoner2Casts);
+        assertThat(matchParticipantEntity.getSummoner2Id()).isEqualTo(summoner2Id);
+        assertThat(matchParticipantEntity.getSummonerId()).isEqualTo(summonerId);
+        assertThat(matchParticipantEntity.getSummonerLevel()).isEqualTo(summonerLevel);
+        assertThat(matchParticipantEntity.getSummonerName()).isEqualTo(summonerName);
+        assertThat(matchParticipantEntity.isTeamEarlySurrendered()).isEqualTo(teamEarlySurrendered);
+        assertThat(matchParticipantEntity.getTeamId()).isEqualTo(teamId);
+        assertThat(matchParticipantEntity.getTeamPosition()).isEqualTo(teamPosition);
+        assertThat(matchParticipantEntity.getTimeCCingOthers()).isEqualTo(timeCCingOthers);
+        assertThat(matchParticipantEntity.getTimePlayed()).isEqualTo(timePlayed);
+        assertThat(matchParticipantEntity.getTotalDamageDealt()).isEqualTo(totalDamageDealt);
+        assertThat(matchParticipantEntity.getTotalDamageDealtToChampions()).isEqualTo(totalDamageDealtToChampions);
+        assertThat(matchParticipantEntity.getTotalDamageTaken()).isEqualTo(totalDamageTaken);
+        assertThat(matchParticipantEntity.getTotalHeal()).isEqualTo(totalHeal);
+        assertThat(matchParticipantEntity.getTotalHealsOnTeammates()).isEqualTo(totalHealsOnTeammates);
+        assertThat(matchParticipantEntity.getTotalMinionsKilled()).isEqualTo(totalMinionsKilled);
+        assertThat(matchParticipantEntity.getTotalTimeCCDealt()).isEqualTo(totalTimeCCDealt);
+        assertThat(matchParticipantEntity.getTotalTimeSpentDead()).isEqualTo(totalTimeSpentDead);
+        assertThat(matchParticipantEntity.getTotalUnitsHealed()).isEqualTo(totalUnitsHealed);
+        assertThat(matchParticipantEntity.getTripleKills()).isEqualTo(tripleKills);
+        assertThat(matchParticipantEntity.getTrueDamageDealt()).isEqualTo(trueDamageDealt);
+        assertThat(matchParticipantEntity.getTrueDamageDealtToChampions()).isEqualTo(trueDamageDealtToChampions);
+        assertThat(matchParticipantEntity.getTrueDamageTaken()).isEqualTo(trueDamageTaken);
+        assertThat(matchParticipantEntity.getTurretKills()).isEqualTo(turretKills);
+        assertThat(matchParticipantEntity.getTurretTakedowns()).isEqualTo(turretTakedowns);
+        assertThat(matchParticipantEntity.getTurretsLost()).isEqualTo(turretsLost);
+        assertThat(matchParticipantEntity.getUnrealKills()).isEqualTo(unrealKills);
+        assertThat(matchParticipantEntity.getVisionScore()).isEqualTo(visionScore);
+        assertThat(matchParticipantEntity.getVisionWardsBoughtInGame()).isEqualTo(visionWardsBoughtInGame);
+        assertThat(matchParticipantEntity.getWardsKilled()).isEqualTo(wardsKilled);
+        assertThat(matchParticipantEntity.getWardsPlaced()).isEqualTo(wardsPlaced);
+        assertThat(matchParticipantEntity.isWin()).isEqualTo(win);
+        assertThat(matchParticipantEntity.getRrt()).isEqualTo(rrt);
+    }
+
 }

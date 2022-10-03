@@ -1140,44 +1140,4 @@ public class MatchParticipantDtoTest {
     private MatchPerksDto createPerksDto() {
         return new MatchPerksDto();
     }
-
-    private String getMultiKills(String doubleKills, String tripleKills, String quadraKills, String pentaKills) {
-        if(Integer.parseInt(pentaKills) > 0)
-            return "펜타킬";
-        else if (Integer.parseInt(quadraKills) > 0)
-            return "쿼드라킬";
-        else if (Integer.parseInt(tripleKills) > 0)
-            return "트리플킬";
-        else if (Integer.parseInt(doubleKills) > 0)
-            return "더블킬";
-        else
-            return null;
-    }
-
-    private String getMinionsKilledPerMin(String totalMinionsKilled, long gameDuration) {
-        BigDecimal minionsKilledCount = new BigDecimal(totalMinionsKilled);
-        BigDecimal gameDurationMin = BigDecimal.valueOf(gameDuration).divide(BigDecimal.valueOf(60), RoundingMode.FLOOR);
-
-        return minionsKilledCount.divide(gameDurationMin, 1, RoundingMode.HALF_UP).toString();
-    }
-
-    private String getKda(String kill, String death, String assist) {
-        String kda = ":1";
-        BigDecimal kills = new BigDecimal(kill);
-        BigDecimal deaths = new BigDecimal(death);
-        BigDecimal assists = new BigDecimal(assist);
-
-        if(0 == kills.compareTo(BigDecimal.ZERO)
-                && 0 == assists.compareTo(BigDecimal.ZERO)) {
-            kda = "0.00" + kda;
-        } else if(0 == deaths.compareTo(BigDecimal.ZERO)) {
-            kda = "Perfect";
-        } else {
-            BigDecimal ratio = kills.add(assists).divide(deaths, 2, RoundingMode.HALF_UP);
-            kda = ratio + kda;
-        }
-
-        return kda;
-    }
-
 }
